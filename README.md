@@ -5,3 +5,5 @@ There are ten different copper horn instruments which can be crafted from a goat
 Each instrument can play three different sounds depending on whether you are standing, sneaking, or looking up. 
 
 ![Copper Horn Image](media/image.png)
+
+All sounds and textures are property of Mojang Studios.
