@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "garden.potato.copperhorns.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "GoatHornItemInvoker"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

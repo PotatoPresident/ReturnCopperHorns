@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "copper-horns",
+  "version": "${version}",
+  "name": "Return Copper Horns",
+  "description": "Re-implements the Copper Horn that was added and removed in the Bedrock Previews",
+  "authors": [
+    "Potatoboy9999"
+  ],
+  "contact": {
+    "repo": "https://github.com/PotatoPresident/ReturnCopperHorns"
+  },
+  "license": "MIT",
+  "icon": "assets/copper-horns/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "garden.potato.copperhorns.CopperHorns"
+    ],
+    "fabric-datagen": [
+      "garden.potato.copperhorns.data.CopperHornsDatagen"
+    ]
+  },
+  "mixins": [
+    "copper-horns.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric": "*",
+    "minecraft": ">=1.19"
+  }
+}
