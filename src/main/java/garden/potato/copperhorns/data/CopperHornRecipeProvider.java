@@ -15,6 +15,6 @@ public class CopperHornRecipeProvider extends FabricRecipeProvider {
 
     @Override
     protected void generateRecipes(Consumer<RecipeJsonProvider> exporter) {
-        ComplexRecipeJsonBuilder.create(CopperHorns.COPPER_HORN_RECIPE).offerTo(exporter, CopperHorns.id("copper_horn_recipe").toString());
+        ComplexRecipeJsonBuilder.create(CopperHorns.COPPER_HORN_RECIPE).offerTo(exporter, CopperHorns.id("copper_horn").toString());
     }
 }

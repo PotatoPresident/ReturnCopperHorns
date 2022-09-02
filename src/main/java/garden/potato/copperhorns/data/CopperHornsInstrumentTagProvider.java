@@ -18,7 +18,9 @@ public class CopperHornsInstrumentTagProvider extends FabricTagProvider<CopperHo
                 .add(CopperHornInstruments.GREAT_COPPER_HORN)
                 .add(CopperHornInstruments.OLD_COPPER_HORN)
                 .add(CopperHornInstruments.PURE_COPPER_HORN)
-                .add(CopperHornInstruments.DRY_COPPER_HORN);
+                .add(CopperHornInstruments.DRY_COPPER_HORN)
+                .add(CopperHornInstruments.MUMBLE_COPPER_HORN)
+                .add(CopperHornInstruments.CLEAR_COPPER_HORN);
 
         this.getOrCreateTagBuilder(CopperHornInstrumentTags.SCREAMING_COPPER_HORNS)
                 .add(CopperHornInstruments.SWEET_COPPER_HORN)
@@ -26,13 +28,8 @@ public class CopperHornsInstrumentTagProvider extends FabricTagProvider<CopperHo
                 .add(CopperHornInstruments.SECRET_COPPER_HORN)
                 .add(CopperHornInstruments.FRESH_COPPER_HORN);
 
-        this.getOrCreateTagBuilder(CopperHornInstrumentTags.SPECIAL_COPPER_HORNS)
-                .add(CopperHornInstruments.MUMBLE_COPPER_HORN)
-                .add(CopperHornInstruments.CLEAR_COPPER_HORN);
-
         this.getOrCreateTagBuilder(CopperHornInstrumentTags.COPPER_HORNS)
                 .addTag(CopperHornInstrumentTags.REGULAR_COPPER_HORNS)
-                .addTag(CopperHornInstrumentTags.SCREAMING_COPPER_HORNS)
-                .addTag(CopperHornInstrumentTags.SPECIAL_COPPER_HORNS);
+                .addTag(CopperHornInstrumentTags.SCREAMING_COPPER_HORNS);
     }
 }
