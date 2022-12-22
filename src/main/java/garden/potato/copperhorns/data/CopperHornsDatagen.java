@@ -6,7 +6,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 public class CopperHornsDatagen implements DataGeneratorEntrypoint {
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-        fabricDataGenerator.addProvider(CopperHornsInstrumentTagProvider::new);
-        fabricDataGenerator.addProvider(CopperHornRecipeProvider::new);
+        var pack = fabricDataGenerator.createPack();
+        pack.addProvider(CopperHornsInstrumentTagProvider::new);
+        pack.addProvider(CopperHornRecipeProvider::new);
     }
 }

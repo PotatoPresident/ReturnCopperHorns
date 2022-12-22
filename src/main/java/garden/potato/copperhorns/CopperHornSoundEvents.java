@@ -1,8 +1,9 @@
 package garden.potato.copperhorns;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.registry.Registry;
 
 import java.util.stream.IntStream;
 
@@ -18,7 +19,7 @@ public class CopperHornSoundEvents {
     }
 
     private static SoundEvent register(String id) {
-        return Registry.register(Registry.SOUND_EVENT, CopperHorns.id(id), new SoundEvent(CopperHorns.id(id)));
+        return Registry.register(Registries.SOUND_EVENT, CopperHorns.id(id), SoundEvent.of(CopperHorns.id(id)));
     }
 
     private enum CopperHornSoundType {

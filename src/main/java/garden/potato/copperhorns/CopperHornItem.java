@@ -4,19 +4,17 @@ import garden.potato.copperhorns.registry.CopperHornRegistries;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.tag.TagKey;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
@@ -61,18 +59,9 @@ public class CopperHornItem extends Item {
     }
 
     @Override
-    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-        if (this.isIn(group)) {
-            for (RegistryEntry<CopperHornInstrument> registryEntry : CopperHornRegistries.INSTRUMENT.iterateEntries(this.instrumentTag)) {
-                stacks.add(CopperHornItem.getStackForInstrument(CopperHorns.COPPER_HORN, registryEntry));
-            }
-        }
-    }
-
-    @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        Optional<RegistryEntry<CopperHornInstrument>> optional = this.getInstrument(itemStack);
+        Optional<? extends RegistryEntry<CopperHornInstrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {
             CopperHornInstrument instrument = optional.get().value();
             user.setCurrentHand(hand);
@@ -85,11 +74,11 @@ public class CopperHornItem extends Item {
 
     @Override
     public int getMaxUseTime(ItemStack stack) {
-        Optional<RegistryEntry<CopperHornInstrument>> optional = this.getInstrument(stack);
+        Optional<? extends RegistryEntry<CopperHornInstrument>> optional = this.getInstrument(stack);
         return optional.map(copperHornInstrumentRegistryEntry -> copperHornInstrumentRegistryEntry.value().useDuration()).orElse(0);
     }
 
-    private Optional<RegistryEntry<CopperHornInstrument>> getInstrument(ItemStack stack) {
+    private Optional<? extends RegistryEntry<CopperHornInstrument>> getInstrument(ItemStack stack) {
         Identifier identifier;
         NbtCompound nbtCompound = stack.getNbt();
         if (nbtCompound != null && (identifier = Identifier.tryParse(nbtCompound.getString(INSTRUMENT_KEY))) != null) {

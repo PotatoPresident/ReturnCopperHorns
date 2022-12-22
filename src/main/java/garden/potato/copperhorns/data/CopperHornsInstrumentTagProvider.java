@@ -4,16 +4,20 @@ import garden.potato.copperhorns.CopperHornInstrument;
 import garden.potato.copperhorns.CopperHornInstrumentTags;
 import garden.potato.copperhorns.CopperHornInstruments;
 import garden.potato.copperhorns.registry.CopperHornRegistries;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.registry.RegistryWrapper;
+
+import java.util.concurrent.CompletableFuture;
 
 public class CopperHornsInstrumentTagProvider extends FabricTagProvider<CopperHornInstrument> {
-    public CopperHornsInstrumentTagProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator, CopperHornRegistries.INSTRUMENT);
+    
+    public CopperHornsInstrumentTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        super(output, CopperHornRegistries.INSTRUMENT_KEY, registriesFuture);
     }
 
     @Override
-    protected void generateTags() {
+    protected void configure(RegistryWrapper.WrapperLookup arg) {
         this.getOrCreateTagBuilder(CopperHornInstrumentTags.REGULAR_COPPER_HORNS)
                 .add(CopperHornInstruments.GREAT_COPPER_HORN)
                 .add(CopperHornInstruments.OLD_COPPER_HORN)

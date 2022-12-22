@@ -11,18 +11,19 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.tag.InstrumentTags;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.InstrumentTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.World;
 
 import java.util.Optional;
 
 public class CopperHornRecipe extends ShapedRecipe {
-    public CopperHornRecipe(Identifier id) {
-        super(id, "", 3, 2, DefaultedList.copyOf(Ingredient.EMPTY,
+    public CopperHornRecipe(Identifier id, CraftingRecipeCategory category) {
+        super(id, "", category, 3, 2, DefaultedList.copyOf(Ingredient.EMPTY,
                 Ingredient.ofItems(Items.COPPER_INGOT), Ingredient.ofItems(Items.GOAT_HORN), Ingredient.ofItems(Items.COPPER_INGOT),
                 Ingredient.EMPTY, Ingredient.ofItems(Items.COPPER_INGOT), Ingredient.EMPTY
         ), new ItemStack(CopperHorns.COPPER_HORN));
@@ -38,7 +39,7 @@ public class CopperHornRecipe extends ShapedRecipe {
         }
         var tag = CopperHornInstrumentTags.REGULAR_COPPER_HORNS;
 
-        Optional<RegistryEntry<Instrument>> instrument = ((GoatHornItemInvoker) goatHorn.getItem()).invokeGetInstrument(goatHorn);
+        Optional<? extends RegistryEntry<Instrument>> instrument = ((GoatHornItemInvoker) goatHorn.getItem()).invokeGetInstrument(goatHorn);
         if (instrument.isPresent()) {
             if (instrument.get().isIn(InstrumentTags.SCREAMING_GOAT_HORNS)) tag = CopperHornInstrumentTags.SCREAMING_COPPER_HORNS;
         }

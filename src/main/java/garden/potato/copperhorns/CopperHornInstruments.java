@@ -2,8 +2,8 @@ package garden.potato.copperhorns;
 
 import garden.potato.copperhorns.registry.CopperHornRegistries;
 import net.minecraft.item.Instruments;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 
 public interface CopperHornInstruments {
     RegistryKey<CopperHornInstrument> GREAT_COPPER_HORN = CopperHornInstruments.of("great_copper_horn");

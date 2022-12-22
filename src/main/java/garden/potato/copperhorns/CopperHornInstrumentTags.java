@@ -1,7 +1,7 @@
 package garden.potato.copperhorns;
 
 import garden.potato.copperhorns.registry.CopperHornRegistries;
-import net.minecraft.tag.TagKey;
+import net.minecraft.registry.tag.TagKey;
 
 public interface CopperHornInstrumentTags {
     TagKey<CopperHornInstrument> REGULAR_COPPER_HORNS = CopperHornInstrumentTags.of("regular_copper_horns");
