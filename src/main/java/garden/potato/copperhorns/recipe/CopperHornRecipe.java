@@ -4,7 +4,7 @@ import garden.potato.copperhorns.CopperHornInstrumentTags;
 import garden.potato.copperhorns.CopperHornItem;
 import garden.potato.copperhorns.CopperHorns;
 import garden.potato.copperhorns.mixin.GoatHornItemInvoker;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.Instrument;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -12,6 +12,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.InstrumentTags;
 import net.minecraft.util.Identifier;
@@ -30,7 +31,7 @@ public class CopperHornRecipe extends ShapedRecipe {
     }
 
     @Override
-    public ItemStack craft(CraftingInventory inventory) {
+    public ItemStack craft(RecipeInputInventory inventory, DynamicRegistryManager dynamicRegistryManager) {
         ItemStack goatHorn = ItemStack.EMPTY;
         for (int i = 0; i < inventory.size() && goatHorn.isEmpty(); ++i) {
             ItemStack itemStack = inventory.getStack(i);
@@ -56,7 +57,7 @@ public class CopperHornRecipe extends ShapedRecipe {
     }
 
     @Override
-    public boolean matches(CraftingInventory craftingInventory, World world) {
+    public boolean matches(RecipeInputInventory craftingInventory, World world) {
         return super.matches(craftingInventory, world);
     }
 }
