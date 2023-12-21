@@ -27,7 +27,7 @@ public class CopperHorns implements ModInitializer {
 	public static final SpecialRecipeSerializer<CopperHornRecipe> COPPER_HORN_RECIPE = new SpecialRecipeSerializer<>(CopperHornRecipe::new);
 	public static final LootFunctionType SET_COPPER_HORN_INSTRUMENT = Registry.register(
 			Registries.LOOT_FUNCTION_TYPE, id("set_instrument"),
-			new LootFunctionType(new SetCopperHornSoundLootFunction.Serializer())
+			new LootFunctionType(SetCopperHornSoundLootFunction.CODEC)
 	);
 
 	@Override

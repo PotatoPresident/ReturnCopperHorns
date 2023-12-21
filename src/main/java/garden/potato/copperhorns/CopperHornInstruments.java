@@ -6,6 +6,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 
 public interface CopperHornInstruments {
+    int COPPER_HORN_USE_DURATION = 70;
+    
     RegistryKey<CopperHornInstrument> GREAT_COPPER_HORN = CopperHornInstruments.of("great_copper_horn");
     RegistryKey<CopperHornInstrument> OLD_COPPER_HORN = CopperHornInstruments.of("old_copper_horn");
     RegistryKey<CopperHornInstrument> PURE_COPPER_HORN = CopperHornInstruments.of("pure_copper_horn");
@@ -26,61 +28,61 @@ public interface CopperHornInstruments {
                 CopperHornSoundEvents.COPPER_HORN_BASS_SOUNDS.get(0),
                 CopperHornSoundEvents.COPPER_HORN_HARMONY_SOUNDS.get(0),
                 CopperHornSoundEvents.COPPER_HORN_MELODY_SOUNDS.get(0),
-                Instruments.GOAT_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
+                COPPER_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
         ));
         Registry.register(registry, OLD_COPPER_HORN, new CopperHornInstrument(
                 CopperHornSoundEvents.COPPER_HORN_BASS_SOUNDS.get(1),
                 CopperHornSoundEvents.COPPER_HORN_HARMONY_SOUNDS.get(1),
                 CopperHornSoundEvents.COPPER_HORN_MELODY_SOUNDS.get(1),
-                Instruments.GOAT_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
+                COPPER_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
         ));
         Registry.register(registry, PURE_COPPER_HORN, new CopperHornInstrument(
                 CopperHornSoundEvents.COPPER_HORN_BASS_SOUNDS.get(2),
                 CopperHornSoundEvents.COPPER_HORN_HARMONY_SOUNDS.get(2),
                 CopperHornSoundEvents.COPPER_HORN_MELODY_SOUNDS.get(2),
-                Instruments.GOAT_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
+                COPPER_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
         ));
         Registry.register(registry, MUMBLE_COPPER_HORN, new CopperHornInstrument(
                 CopperHornSoundEvents.COPPER_HORN_BASS_SOUNDS.get(3),
                 CopperHornSoundEvents.COPPER_HORN_HARMONY_SOUNDS.get(3),
                 CopperHornSoundEvents.COPPER_HORN_MELODY_SOUNDS.get(3),
-                Instruments.GOAT_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
+                COPPER_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
         ));
         Registry.register(registry, DRY_COPPER_HORN, new CopperHornInstrument(
                 CopperHornSoundEvents.COPPER_HORN_BASS_SOUNDS.get(4),
                 CopperHornSoundEvents.COPPER_HORN_HARMONY_SOUNDS.get(4),
                 CopperHornSoundEvents.COPPER_HORN_MELODY_SOUNDS.get(4),
-                Instruments.GOAT_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
+                COPPER_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
         ));
         Registry.register(registry, CLEAR_COPPER_HORN, new CopperHornInstrument(
                 CopperHornSoundEvents.COPPER_HORN_BASS_SOUNDS.get(5),
                 CopperHornSoundEvents.COPPER_HORN_HARMONY_SOUNDS.get(5),
                 CopperHornSoundEvents.COPPER_HORN_MELODY_SOUNDS.get(5),
-                Instruments.GOAT_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
+                COPPER_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
         ));
         Registry.register(registry, FRESH_COPPER_HORN, new CopperHornInstrument(
                 CopperHornSoundEvents.COPPER_HORN_BASS_SOUNDS.get(6),
                 CopperHornSoundEvents.COPPER_HORN_HARMONY_SOUNDS.get(6),
                 CopperHornSoundEvents.COPPER_HORN_MELODY_SOUNDS.get(6),
-                Instruments.GOAT_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
+                COPPER_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
         ));
         Registry.register(registry, SECRET_COPPER_HORN, new CopperHornInstrument(
                 CopperHornSoundEvents.COPPER_HORN_BASS_SOUNDS.get(7),
                 CopperHornSoundEvents.COPPER_HORN_HARMONY_SOUNDS.get(7),
                 CopperHornSoundEvents.COPPER_HORN_MELODY_SOUNDS.get(7),
-                Instruments.GOAT_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
+                COPPER_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
         ));
         Registry.register(registry, FEARLESS_COPPER_HORN, new CopperHornInstrument(
                 CopperHornSoundEvents.COPPER_HORN_BASS_SOUNDS.get(8),
                 CopperHornSoundEvents.COPPER_HORN_HARMONY_SOUNDS.get(8),
                 CopperHornSoundEvents.COPPER_HORN_MELODY_SOUNDS.get(8),
-                Instruments.GOAT_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
+                COPPER_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
         ));
         Registry.register(registry, SWEET_COPPER_HORN, new CopperHornInstrument(
                 CopperHornSoundEvents.COPPER_HORN_BASS_SOUNDS.get(9),
                 CopperHornSoundEvents.COPPER_HORN_HARMONY_SOUNDS.get(9),
                 CopperHornSoundEvents.COPPER_HORN_MELODY_SOUNDS.get(9),
-                Instruments.GOAT_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
+                COPPER_HORN_USE_DURATION, Instruments.GOAT_HORN_RANGE
         ));
     }
 }

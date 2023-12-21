@@ -1,9 +1,7 @@
 package garden.potato.copperhorns.loot;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSyntaxException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import garden.potato.copperhorns.CopperHornInstrument;
 import garden.potato.copperhorns.CopperHornItem;
 import garden.potato.copperhorns.CopperHorns;
@@ -14,13 +12,18 @@ import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.function.ConditionalLootFunction;
 import net.minecraft.loot.function.LootFunctionType;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
+
+import java.util.List;
 
 public class SetCopperHornSoundLootFunction extends ConditionalLootFunction {
+    public static final Codec<SetCopperHornSoundLootFunction> CODEC = RecordCodecBuilder.create(
+            instance -> addConditionsField(instance)
+                    .and(TagKey.codec(CopperHornRegistries.INSTRUMENT_KEY).fieldOf("options").forGetter(function -> function.instrumentTagKey))
+                    .apply(instance, SetCopperHornSoundLootFunction::new)
+    );
     final TagKey<CopperHornInstrument> instrumentTagKey;
 
-    SetCopperHornSoundLootFunction(LootCondition[] lootConditions, TagKey<CopperHornInstrument> tagKey) {
+    SetCopperHornSoundLootFunction(List<LootCondition> lootConditions, TagKey<CopperHornInstrument> tagKey) {
         super(lootConditions);
         this.instrumentTagKey = tagKey;
     }
@@ -37,23 +40,6 @@ public class SetCopperHornSoundLootFunction extends ConditionalLootFunction {
     }
 
     public static ConditionalLootFunction.Builder<?> builder(TagKey<CopperHornInstrument> tagKey) {
-        return SetCopperHornSoundLootFunction.builder((LootCondition[] lootConditions) -> new SetCopperHornSoundLootFunction(lootConditions, tagKey));
-    }
-
-    public static class Serializer extends ConditionalLootFunction.Serializer<SetCopperHornSoundLootFunction> {
-        @Override
-        public void toJson(JsonObject jsonObject, SetCopperHornSoundLootFunction setGoatHornSoundLootFunction, JsonSerializationContext jsonSerializationContext) {
-            super.toJson(jsonObject, setGoatHornSoundLootFunction, jsonSerializationContext);
-            jsonObject.addProperty("options", "#" + setGoatHornSoundLootFunction.instrumentTagKey.id());
-        }
-
-        @Override
-        public SetCopperHornSoundLootFunction fromJson(JsonObject jsonObject, JsonDeserializationContext jsonDeserializationContext, LootCondition[] lootConditions) {
-            String string = JsonHelper.getString(jsonObject, "options");
-            if (!string.startsWith("#")) {
-                throw new JsonSyntaxException("Inline tag value not supported: " + string);
-            }
-            return new SetCopperHornSoundLootFunction(lootConditions, TagKey.of(CopperHornRegistries.INSTRUMENT_KEY, new Identifier(string.substring(1))));
-        }
+        return SetCopperHornSoundLootFunction.builder((List<LootCondition> lootConditions) -> new SetCopperHornSoundLootFunction(lootConditions, tagKey));
     }
 }
