@@ -1,6 +1,6 @@
 package garden.potato.copperhorns.loot;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import garden.potato.copperhorns.CopperHornInstrument;
 import garden.potato.copperhorns.CopperHornItem;
@@ -16,7 +16,7 @@ import net.minecraft.registry.tag.TagKey;
 import java.util.List;
 
 public class SetCopperHornSoundLootFunction extends ConditionalLootFunction {
-    public static final Codec<SetCopperHornSoundLootFunction> CODEC = RecordCodecBuilder.create(
+    public static final MapCodec<SetCopperHornSoundLootFunction> CODEC = RecordCodecBuilder.mapCodec(
             instance -> addConditionsField(instance)
                     .and(TagKey.codec(CopperHornRegistries.INSTRUMENT_KEY).fieldOf("options").forGetter(function -> function.instrumentTagKey))
                     .apply(instance, SetCopperHornSoundLootFunction::new)
@@ -29,7 +29,7 @@ public class SetCopperHornSoundLootFunction extends ConditionalLootFunction {
     }
 
     @Override
-    public LootFunctionType getType() {
+    public LootFunctionType<SetCopperHornSoundLootFunction> getType() {
         return CopperHorns.SET_COPPER_HORN_INSTRUMENT;
     }
 

@@ -12,6 +12,7 @@
   },
   "license": "MIT",
   "icon": "assets/copper-horns/icon.png",
+  "accessWidener": "copper-horns.accesswidener",
   "environment": "*",
   "entrypoints": {
     "main": [

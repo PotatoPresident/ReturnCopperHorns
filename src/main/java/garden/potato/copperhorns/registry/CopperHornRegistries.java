@@ -8,6 +8,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 
 public class CopperHornRegistries {
-    public static final RegistryKey<Registry<CopperHornInstrument>> INSTRUMENT_KEY = RegistryKey.ofRegistry(CopperHorns.id("instrument"));
-    public static final DefaultedRegistry<CopperHornInstrument> INSTRUMENT = FabricRegistryBuilder.createDefaulted(CopperHornInstrument.class, INSTRUMENT_KEY.getValue(), CopperHorns.id("great_copper_horn")).buildAndRegister();
+    public static final RegistryKey<Registry<CopperHornInstrument>> INSTRUMENT_KEY = RegistryKey.ofRegistry(CopperHorns.id("copper_horn_instrument"));
+    public static final DefaultedRegistry<CopperHornInstrument> INSTRUMENT = FabricRegistryBuilder.createDefaulted(INSTRUMENT_KEY, CopperHorns.id("great_copper_horn")).buildAndRegister();
 }

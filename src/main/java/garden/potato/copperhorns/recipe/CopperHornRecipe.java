@@ -4,7 +4,6 @@ import garden.potato.copperhorns.CopperHornInstrumentTags;
 import garden.potato.copperhorns.CopperHornItem;
 import garden.potato.copperhorns.CopperHorns;
 import garden.potato.copperhorns.mixin.GoatHornItemInvoker;
-import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.Instrument;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -13,7 +12,8 @@ import net.minecraft.recipe.RawShapedRecipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.recipe.input.CraftingRecipeInput;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.InstrumentTags;
 import net.minecraft.util.math.random.Random;
@@ -33,10 +33,10 @@ public class CopperHornRecipe extends ShapedRecipe {
     }
 
     @Override
-    public ItemStack craft(RecipeInputInventory inventory, DynamicRegistryManager dynamicRegistryManager) {
+    public ItemStack craft(CraftingRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
         ItemStack goatHorn = ItemStack.EMPTY;
-        for (int i = 0; i < inventory.size() && goatHorn.isEmpty(); ++i) {
-            ItemStack itemStack = inventory.getStack(i);
+        for (int i = 0; i < craftingRecipeInput.getSize() && goatHorn.isEmpty(); ++i) {
+            ItemStack itemStack = craftingRecipeInput.getStackInSlot(i);
             if (!itemStack.isOf(Items.GOAT_HORN)) continue;
             goatHorn = itemStack;
         }
@@ -59,7 +59,7 @@ public class CopperHornRecipe extends ShapedRecipe {
     }
 
     @Override
-    public boolean matches(RecipeInputInventory craftingInventory, World world) {
-        return super.matches(craftingInventory, world);
+    public boolean matches(CraftingRecipeInput craftingRecipeInput, World world) {
+        return super.matches(craftingRecipeInput, world);
     }
 }
