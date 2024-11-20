@@ -6,7 +6,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 
 public interface CopperHornInstruments {
-    int COPPER_HORN_USE_DURATION = 70;
+    float COPPER_HORN_USE_DURATION = 4.0f;
     
     RegistryKey<CopperHornInstrument> GREAT_COPPER_HORN = CopperHornInstruments.of("great_copper_horn");
     RegistryKey<CopperHornInstrument> OLD_COPPER_HORN = CopperHornInstruments.of("old_copper_horn");

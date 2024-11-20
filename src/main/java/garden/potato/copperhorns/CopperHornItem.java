@@ -1,27 +1,27 @@
 package garden.potato.copperhorns;
 
 import garden.potato.copperhorns.registry.CopperHornRegistries;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Instrument;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.consume.UseAction;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.stat.Stats;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 import java.util.List;
@@ -39,7 +39,8 @@ public class CopperHornItem extends Item {
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         super.appendTooltip(stack, context, tooltip, type);
-        Optional<RegistryKey<CopperHornInstrument>> optional = this.getInstrument(stack).flatMap(RegistryEntry::getKey);
+        RegistryWrapper.WrapperLookup wrapperLookup = context.getRegistryLookup();
+        Optional<RegistryKey<CopperHornInstrument>> optional = this.getInstrument(stack, wrapperLookup).flatMap(RegistryEntry::getKey);
         if (optional.isPresent()) {
             MutableText mutableText = Text.translatable(Util.createTranslationKey(INSTRUMENT_KEY, optional.get().getValue()));
             tooltip.add(mutableText.formatted(Formatting.GRAY));
@@ -58,32 +59,40 @@ public class CopperHornItem extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        Optional<? extends RegistryEntry<CopperHornInstrument>> optional = this.getInstrument(itemStack);
+        Optional<? extends RegistryEntry<CopperHornInstrument>> optional = this.getInstrument(itemStack, user.getRegistryManager());
         if (optional.isPresent()) {
             CopperHornInstrument instrument = optional.get().value();
             user.setCurrentHand(hand);
-            CopperHornItem.playSound(world, user, instrument);
-            user.getItemCooldownManager().set(this, instrument.useDuration());
-            return TypedActionResult.consume(itemStack);
+            playSound(world, user, instrument);
+            user.getItemCooldownManager().set(itemStack, MathHelper.floor(instrument.useDuration() * 20.0F));
+            user.incrementStat(Stats.USED.getOrCreateStat(this));
+            return ActionResult.CONSUME;
         }
-        return TypedActionResult.fail(itemStack);
+        return ActionResult.FAIL;
     }
 
     @Override
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
-        Optional<? extends RegistryEntry<CopperHornInstrument>> optional = this.getInstrument(stack);
-        return optional.map(copperHornInstrumentRegistryEntry -> copperHornInstrumentRegistryEntry.value().useDuration()).orElse(0);
+        Optional<RegistryEntry<CopperHornInstrument>> optional = this.getInstrument(stack, user.getRegistryManager());
+        return optional.map(instrument -> MathHelper.floor(instrument.value().useDuration() * 20.0F)).orElse(0);
     }
 
-    private Optional<RegistryEntry<CopperHornInstrument>> getInstrument(ItemStack stack) {
-        RegistryEntry<CopperHornInstrument> entry = stack.get(CopperHorns.INSTRUMENT_COMPONENT);
-        if (entry != null) {
-            return Optional.of(entry);
+    private Optional<RegistryEntry<CopperHornInstrument>> getInstrument(ItemStack stack, RegistryWrapper.WrapperLookup registries) {
+        RegistryEntry<CopperHornInstrument> registryEntry = stack.get(CopperHorns.INSTRUMENT_COMPONENT);
+        if (registryEntry != null) {
+            return Optional.of(registryEntry);
         } else {
-            Iterator<RegistryEntry<CopperHornInstrument>> iterator = CopperHornRegistries.INSTRUMENT.iterateEntries(this.instrumentTag).iterator();
-            return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
+            Optional<RegistryEntryList.Named<CopperHornInstrument>> optional = registries.getOrThrow(CopperHornRegistries.INSTRUMENT_KEY).getOptional(this.instrumentTag);
+            if (optional.isPresent()) {
+                Iterator<RegistryEntry<CopperHornInstrument>> iterator = optional.get().iterator();
+                if (iterator.hasNext()) {
+                    return Optional.of(iterator.next());
+                }
+            }
+
+            return Optional.empty();
         }
     }
 

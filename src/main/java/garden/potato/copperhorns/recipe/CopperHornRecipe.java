@@ -35,14 +35,14 @@ public class CopperHornRecipe extends ShapedRecipe {
     @Override
     public ItemStack craft(CraftingRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
         ItemStack goatHorn = ItemStack.EMPTY;
-        for (int i = 0; i < craftingRecipeInput.getSize() && goatHorn.isEmpty(); ++i) {
+        for (int i = 0; i < craftingRecipeInput.size() && goatHorn.isEmpty(); ++i) {
             ItemStack itemStack = craftingRecipeInput.getStackInSlot(i);
             if (!itemStack.isOf(Items.GOAT_HORN)) continue;
             goatHorn = itemStack;
         }
         var tag = CopperHornInstrumentTags.REGULAR_COPPER_HORNS;
 
-        Optional<? extends RegistryEntry<Instrument>> instrument = ((GoatHornItemInvoker) goatHorn.getItem()).invokeGetInstrument(goatHorn);
+        Optional<? extends RegistryEntry<Instrument>> instrument = ((GoatHornItemInvoker) goatHorn.getItem()).invokeGetInstrument(goatHorn, wrapperLookup);
         if (instrument.isPresent()) {
             if (instrument.get().isIn(InstrumentTags.SCREAMING_GOAT_HORNS)) tag = CopperHornInstrumentTags.SCREAMING_COPPER_HORNS;
         }
@@ -53,8 +53,9 @@ public class CopperHornRecipe extends ShapedRecipe {
         return copperHorn;
     }
 
+
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<CopperHornRecipe> getSerializer() {
         return CopperHorns.COPPER_HORN_RECIPE;
     }
 

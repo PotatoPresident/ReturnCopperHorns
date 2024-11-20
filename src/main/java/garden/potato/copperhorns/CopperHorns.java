@@ -5,7 +5,7 @@ import garden.potato.copperhorns.recipe.CopperHornRecipe;
 import garden.potato.copperhorns.registry.CopperHornRegistries;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.component.ComponentType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -16,16 +16,18 @@ import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.LootFunctionType;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.recipe.SpecialRecipeSerializer;
+import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 
 public class CopperHorns implements ModInitializer {
 	public static final String MOD_ID = "copper-horns";
-	public static final Item COPPER_HORN = new CopperHornItem(new Item.Settings().maxCount(1), CopperHornInstrumentTags.COPPER_HORNS);
-	public static final SpecialRecipeSerializer<CopperHornRecipe> COPPER_HORN_RECIPE = new SpecialRecipeSerializer<>(CopperHornRecipe::new);
+	public static final Item COPPER_HORN = new CopperHornItem(new Item.Settings().maxCount(1).registryKey(RegistryKey.of(RegistryKeys.ITEM, id("copper_horn"))), CopperHornInstrumentTags.COPPER_HORNS);
+	public static final SpecialCraftingRecipe.SpecialRecipeSerializer<CopperHornRecipe> COPPER_HORN_RECIPE = new SpecialCraftingRecipe.SpecialRecipeSerializer<>(CopperHornRecipe::new);
 	public static final LootFunctionType<SetCopperHornSoundLootFunction> SET_COPPER_HORN_INSTRUMENT = Registry.register(
 			Registries.LOOT_FUNCTION_TYPE, id("set_instrument"),
 			new LootFunctionType<>(SetCopperHornSoundLootFunction.CODEC)
@@ -50,7 +52,7 @@ public class CopperHorns implements ModInitializer {
 			}
 		});
 
-		LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
 			if (key.equals(LootTables.PILLAGER_OUTPOST_CHEST)) {
 				tableBuilder.pool(LootPool.builder()
 						.rolls(ConstantLootNumberProvider.create(1))
